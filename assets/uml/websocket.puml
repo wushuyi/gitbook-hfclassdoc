@@ -1,0 +1,51 @@
+@startuml
+
+title WebSocekt 数据传输层处理
+
+cloud  "服务端发送数据" as step1
+note left
+ 服务端发送数据
+end note
+
+component "socket.io处理底层传输数据解析" as step2
+note right
+ 按照socket.io 的规范
+ 解析数据返回 js json 数据
+end note
+
+component  "触发 socket.io ondata事件" as step3
+note right
+ 根据后端需求数据
+ 只走 ondata 事件
+end note
+
+component  "util/wsy/hf_socket.js 做数据处理封装" as step4
+note right
+ 另外在 socket.io 传输层为基础
+ 上封装一套事件驱动数据交互
+end note
+
+component  "触发自定义封装事件" as step5
+note right
+ 触发js 绑定的数据监听事件
+ 浏览器端处理数据
+end note
+
+node "浏览器端处理" as step6
+note left
+ js对接收数据进行逻辑处理
+end note
+
+step1 --> step2
+step2 --> step3
+step3 --> step4
+step4 --> step5
+step5 --> step6
+
+step1 <.. step2
+step2 <.. step3
+step3 <.. step4
+step4 <.. step5
+step5 <.. step6
+
+@enduml

@@ -1,0 +1,1 @@
+![](../assets/images/uml/websocket.svg)
